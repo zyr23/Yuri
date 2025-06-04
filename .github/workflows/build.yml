@@ -1,17 +1,19 @@
-name: VSCode Extension Build
+name: Build VSCode Extension
 
 on:
   push:
     branches:
       - main
-  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -25,11 +27,11 @@ jobs:
       - name: Install vsce
         run: npm install -g vsce
 
-      - name: Package VSCode extension
+      - name: Package Extension
         run: vsce package
 
       - name: Upload VSIX artifact
-        uses: actions/upload-artifact@v3.1.3
+        uses: actions/upload-artifact@v2
         with:
-          name: vscode-extension-package
+          name: vscode-extension
           path: '*.vsix'
