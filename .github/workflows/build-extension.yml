@@ -2,8 +2,7 @@ name: Build VSCode Extension
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches: [main]
 
 jobs:
   build:
@@ -24,11 +23,11 @@ jobs:
       - name: Install vsce
         run: npm install -g @vscode/vsce
 
-      - name: Package VSCode extension
+      - name: Package extension
         run: vsce package
 
-      - name: Upload VSIX artifact
+      - name: Upload .vsix artifact
         uses: actions/upload-artifact@v3
         with:
-          name: vscode-extension
+          name: extension
           path: '*.vsix'
